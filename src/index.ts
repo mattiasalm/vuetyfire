@@ -3,9 +3,9 @@ import vueFirebase, {
   FirebaseConfig,
   VueFirebaseOptions,
   VueFirestoreConfig,
-} from './lib/firebase';
+} from './fractions/firebase';
 
-export * from './lib/firestore-binding';
+export * from './fractions/firestore-binding';
 
 // Add extended module declarationm for Vue
 declare module 'vue/types/vue' {

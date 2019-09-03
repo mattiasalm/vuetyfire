@@ -1,7 +1,7 @@
 import { VueConstructor } from 'vue';
 import VueRouter from 'vue-router';
-import firebase from 'firebase/app';
-import firebaseui from 'firebaseui';
+import * as firebase from 'firebase/app';
+import * as firebaseui from 'firebaseui';
 import vueFirebaseData from '../data';
 import vueFirebaseUI from '../firebaseui/vue-firebaseui';
 import vueFirebaseFirestore from '../firestore/vue-firebase-firestore';
