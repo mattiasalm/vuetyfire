@@ -1,8 +1,8 @@
+import * as firebase from 'firebase';
 import { VueConstructor } from 'vue';
 import { firestorePlugin } from 'vuefire';
-import * as firebase from 'firebase';
 
-import { isEven, firestoreFunctionPath } from '../util';
+import { firestoreFunctionPath, isEven } from '../util';
 
 interface FirestoreReference {
   key: string;
@@ -20,20 +20,20 @@ const createMixinData = (config: VueFirestoreConfig) =>
       ...acc,
       [curr.key]: isEven(curr.path.split('/').length) ? {} : [],
     }),
-    {}
+    {},
   );
 
 // Create firestore object from config
 const createMixinFirestore = (
   config: VueFirestoreConfig,
-  firestoreRef: firebase.firestore.Firestore
+  firestoreRef: firebase.firestore.Firestore,
 ) => {
   return config.firestoreReferences.reduce(
     (acc, curr) => ({
       ...acc,
       [curr.key]: firestoreFunctionPath(curr.path, firestoreRef),
     }),
-    {}
+    {},
   );
 };
 
@@ -41,7 +41,7 @@ const createMixinFirestore = (
 const initVueFire = (
   Vue: VueConstructor,
   firestoreRef: firebase.firestore.Firestore,
-  firestoreConfig: VueFirestoreConfig
+  firestoreConfig: VueFirestoreConfig,
 ) => {
   Vue.use(firestorePlugin);
   Vue.mixin({

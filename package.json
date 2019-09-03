@@ -12,10 +12,11 @@
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
+    "lint-fix": "tslint --fix -p tsconfig.json",
     "prepare" : "npm run build",
     "prepublishOnly" : "npm run lint",
     "preversion" : "npm run lint",
-    "version" : "npm run format && git add -A src",
+    "version" : "npm run format && npm run lint-fix && git add -A src",
     "postversion" : "git push && git push --tags"
   },
   "repository": {

@@ -4,10 +4,10 @@ import {
   OperationsType,
   walkSet,
 } from '@posva/vuefire-core';
-import { firestore } from 'firebase'
-import { firestoreFunctionPath } from '../util';
+import { firestore } from 'firebase';
 import Vue from 'vue';
 import vueFirebaseData from '../data';
+import { firestoreFunctionPath } from '../util';
 
 interface CommonOptions {
   vm: Vue;
@@ -35,9 +35,9 @@ interface DocumentBindOptions extends CommonBindOptions {
 }
 
 const ops: OperationsType = {
-  set: (target, path, value) => walkSet(target, path, value),
   add: (array, index, data) => array.splice(index, 0, data),
   remove: (array, index) => array.splice(index, 1),
+  set: (target, path, value) => walkSet(target, path, value),
 };
 
 const bindFirestorePath = ({
@@ -47,26 +47,27 @@ const bindFirestorePath = ({
   resolve,
   reject,
 }: FirestorePathOptions) => {
-  if (!vueFirebaseData.vueFirebase) return;
-  if (!vm || !path || !key) return;
+  if (!vueFirebaseData.vueFirebase) {
+    return;
+  }
+  if (!vm || !path || !key) {
+    return;
+  }
 
   const firestoreRef: firestore.Firestore = vueFirebaseData.vueFirebase
     .firestore as firestore.Firestore;
   const firestoreDataRef:
     | firestore.CollectionReference
-    | firestore.DocumentReference = firestoreFunctionPath(
-    path,
-    firestoreRef
-  );
+    | firestore.DocumentReference = firestoreFunctionPath(path, firestoreRef);
 
-  const defaultResolveReject = (_?: any) => {};
+  const defaultResolveReject = (_?: any) => undefined;
 
   const bindOptions: CommonBindOptions = {
-    vm,
     key,
     ops,
-    resolve: resolve || defaultResolveReject,
     reject: reject || defaultResolveReject,
+    resolve: resolve || defaultResolveReject,
+    vm,
   };
 
   if ('where' in firestoreDataRef) {

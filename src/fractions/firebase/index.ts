@@ -1,12 +1,12 @@
-import { VueConstructor } from 'vue';
-import VueRouter from 'vue-router';
 import * as firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
+import { VueConstructor } from 'vue';
+import VueRouter from 'vue-router';
+import vueFirebaseAuthGuard from '../auth/vue-firebase-auth-guard';
+import vueFirebaseAuthMixin from '../auth/vue-firebase-auth-mixin';
 import vueFirebaseData from '../data';
 import vueFirebaseUI from '../firebaseui/vue-firebaseui';
 import vueFirebaseFirestore from '../firestore/vue-firebase-firestore';
-import vueFirebaseAuthMixin from '../auth/vue-firebase-auth-mixin';
-import vueFirebaseAuthGuard from '../auth/vue-firebase-auth-guard';
 import vueFirebaseVueFire, {
   VueFirestoreConfig,
 } from '../firestore/vue-firebase-vuefire';
@@ -60,20 +60,20 @@ const installFirebase = (Vue: VueConstructor, options: VueFirebaseOptions) => {
   // Store all references in data object
   vueFirebaseData.vueFirebase = {
     App: initFirebase(options.firebaseConfig),
-    signOut,
-    isSignedIn: vueFirebaseData.signedIn,
     currentUser: null,
-    initialized: false,
     firebaseUI: vueFirebaseUI.initFirebaseUI(),
-    startFirebaseUIAuth: vueFirebaseUI.startFirebaseUIAuth,
     firestore: null,
+    initialized: false,
+    isSignedIn: vueFirebaseData.signedIn,
+    signOut,
+    startFirebaseUIAuth: vueFirebaseUI.startFirebaseUIAuth,
   };
 
   // Init VueFire
   vueFirebaseVueFire.initVueFire(
     Vue,
     vueFirebaseData.vueFirebase.firestore!,
-    options.firestoreConfig || { firestoreReferences: [] }
+    options.firestoreConfig || { firestoreReferences: [] },
   );
 
   // Add mixin for reactive auth data

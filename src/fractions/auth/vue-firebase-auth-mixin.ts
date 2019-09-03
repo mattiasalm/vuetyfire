@@ -5,17 +5,17 @@ import vueFirebaseData from '../data';
 // reachable in Vue components
 const mixin = {
   beforeCreate() {
-    const _this = this as any;
-    _this.$firebase = Vue.observable(vueFirebaseData.vueFirebase);
+    const localThis = this as any;
+    localThis.$firebase = Vue.observable(vueFirebaseData.vueFirebase);
 
     // Add event listener to store updated value
     // Make updates reactive in Vue
     vueFirebaseData
       .vueFirebase!.App.auth()
       .onAuthStateChanged((user: firebase.User | null) => {
-        Vue.set(_this.$firebase, 'currentUser', user);
-        Vue.set(_this.$firebase, 'isSignedIn', !!user);
-        Vue.set(_this.$firebase, 'initialized', true);
+        Vue.set(localThis.$firebase, 'currentUser', user);
+        Vue.set(localThis.$firebase, 'isSignedIn', !!user);
+        Vue.set(localThis.$firebase, 'initialized', true);
       });
   },
 };

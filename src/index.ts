@@ -1,6 +1,6 @@
 import vueFirebase, {
-  VueFirebase,
   FirebaseConfig,
+  VueFirebase,
   VueFirebaseOptions,
   VueFirestoreConfig,
 } from './fractions/firebase';

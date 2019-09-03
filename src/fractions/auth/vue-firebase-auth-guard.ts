@@ -13,8 +13,7 @@ const enterGuard = (to: Route, _: Route, next: any) => {
   // Check if the user is logged in before trying to reach route
   if (vueFirebaseData.hasAuth) {
     vueFirebaseData
-      .vueFirebase!
-      .App.auth()
+      .vueFirebase!.App.auth()
       .onAuthStateChanged((user: firebase.User | null) => {
         // User is logged in
         if (!!user) {

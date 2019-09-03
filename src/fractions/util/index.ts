@@ -1,16 +1,23 @@
 import { firestore } from 'firebase';
 
+enum RefType {
+  'COLLECTION' = 'collection',
+  'DOCUMENT' = 'doc',
+}
+
 // Create the function path for string path
 const firestoreFunctionPath = (
   path: string,
-  firestoreRef: firestore.Firestore
+  firestoreRef: firestore.Firestore,
 ): firestore.CollectionReference | firestore.DocumentReference =>
   path
     .split('/')
     .reduce(
       (arr, curr, index) =>
-        isEven(index) ? arr['collection'](curr) : arr['doc'](curr),
-      firestoreRef as any
+        isEven(index)
+          ? arr[RefType.COLLECTION](curr)
+          : arr[RefType.DOCUMENT](curr),
+      firestoreRef as any,
     );
 
 // Helper

@@ -1,10 +1,6 @@
-import {
-  firestoreFunctionPath,
-  isObject,
-} from '../util';
-import Vue from 'vue';
-import vueFirebaseData from '../data';
 import { firestore } from 'firebase';
+import vueFirebaseData from '../data';
+import { firestoreFunctionPath, isObject } from '../util';
 
 interface SetOptions {
   data: { [key: string]: any };
@@ -16,7 +12,9 @@ interface DeleteOptions {
 }
 
 const createFirestoreDataRef = (path: string) => {
-  if (!vueFirebaseData.vueFirebase) return;
+  if (!vueFirebaseData.vueFirebase) {
+    return;
+  }
 
   const firestoreRef: firestore.Firestore = vueFirebaseData.vueFirebase
     .firestore as firestore.Firestore;
@@ -25,8 +23,12 @@ const createFirestoreDataRef = (path: string) => {
 
 const setFirestoreDocument = ({ data, path }: SetOptions) => {
   const firestoreDataRef = createFirestoreDataRef(path);
-  if (!firestoreDataRef) return;
-  if (!isObject(data)) return;
+  if (!firestoreDataRef) {
+    return;
+  }
+  if (!isObject(data)) {
+    return;
+  }
 
   if (!('where' in firestoreDataRef)) {
     firestoreDataRef.set({ ...data });
@@ -35,8 +37,12 @@ const setFirestoreDocument = ({ data, path }: SetOptions) => {
 
 const addFirestoreDocument = ({ data, path }: SetOptions) => {
   const firestoreDataRef = createFirestoreDataRef(path);
-  if (!firestoreDataRef) return;
-  if (!isObject(data)) return;
+  if (!firestoreDataRef) {
+    return;
+  }
+  if (!isObject(data)) {
+    return;
+  }
 
   if ('where' in firestoreDataRef) {
     firestoreDataRef
@@ -45,13 +51,17 @@ const addFirestoreDocument = ({ data, path }: SetOptions) => {
         const id = docRef.id;
         docRef.set({ id }, { merge: true });
       })
-      .catch(console.error);
+      .catch(err => {
+        throw new Error(err);
+      });
   }
 };
 
 const deleteFirestoreDocument = ({ path }: DeleteOptions) => {
   const firestoreDataRef = createFirestoreDataRef(path);
-  if (!firestoreDataRef) return;
+  if (!firestoreDataRef) {
+    return;
+  }
 
   if (!('where' in firestoreDataRef)) {
     firestoreDataRef.delete();
