@@ -1,5 +1,5 @@
 {
-  "name": "vue-firebase-reactive",
+  "name": "vuetyfire",
   "version": "1.0.1",
   "description": "Vue plugin for connecting Vue with Firebase",
   "main": "lib/index.js",
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mattiasalm/vue-firebase-reactive.git"
+    "url": "git+https://github.com/mattiasalm/vuetyfire.git"
   },
   "keywords": [
     "vue",
@@ -33,9 +33,9 @@
   "author": "https://github.com/mattiasalm",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mattiasalm/vue-firebase-reactive/issues"
+    "url": "https://github.com/mattiasalm/vuetyfire/issues"
   },
-  "homepage": "https://github.com/mattiasalm/vue-firebase-reactive#readme",
+  "homepage": "https://github.com/mattiasalm/vuetyfire#readme",
   "peerDependencies": {
     "firebase": "^6.5.0"
   },
