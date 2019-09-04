@@ -1,8 +1,18 @@
-import VueRouter, { Route } from 'vue-router';
 import vueFirebaseData from '../data';
 
+// Make copies of interfaces to avoid adding VueRouter as a dependency only for it's typing
+interface RouteRecordCopy {
+  meta?: any;
+  [key: string]: any;
+}
+
+interface RouteCopy {
+  matched: RouteRecordCopy[];
+  [key: string]: any;
+}
+
 // Enter guard for routes
-const enterGuard = (to: Route, _: Route, next: any) => {
+const enterGuard = (to: RouteCopy, _: RouteCopy, next: any) => {
   // Check if the route can be reached without login
   if (!to.matched.some(record => !!record.meta && record.meta.requiresAuth)) {
     next();
@@ -30,7 +40,7 @@ const enterGuard = (to: Route, _: Route, next: any) => {
   }
 };
 
-const addEnterGuard = (router: VueRouter) => router.beforeEach(enterGuard);
+const addEnterGuard = (router: any) => router.beforeEach(enterGuard);
 
 export default {
   addEnterGuard,

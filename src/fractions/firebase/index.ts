@@ -1,7 +1,6 @@
 import * as firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
 import { VueConstructor } from 'vue';
-import VueRouter from 'vue-router';
 import vueFirebaseAuthGuard from '../auth/vue-firebase-auth-guard';
 import vueFirebaseAuthMixin from '../auth/vue-firebase-auth-mixin';
 import vueFirebaseData from '../data';
@@ -34,9 +33,9 @@ interface FirebaseConfig {
 }
 
 interface VueFirebaseOptions {
-  router: VueRouter;
   firebaseConfig: FirebaseConfig;
   firestoreConfig?: VueFirestoreConfig;
+  router?: any;
 }
 
 // Start and initialize Firebase on app
@@ -80,7 +79,9 @@ const installFirebase = (Vue: VueConstructor, options: VueFirebaseOptions) => {
   Vue.mixin(vueFirebaseAuthMixin);
 
   // Add enter guard
-  vueFirebaseAuthGuard.addEnterGuard(options.router);
+  if (!!options.router) {
+    vueFirebaseAuthGuard.addEnterGuard(options.router);
+  }
 };
 
 export { VueFirebase, FirebaseConfig, VueFirestoreConfig, VueFirebaseOptions };
