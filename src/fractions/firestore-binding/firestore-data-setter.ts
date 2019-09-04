@@ -5,6 +5,7 @@ import { firestoreFunctionPath, isObject } from '../util';
 interface SetOptions {
   data: { [key: string]: any };
   path: string;
+  merge?: boolean;
 }
 
 interface DeleteOptions {
@@ -21,7 +22,7 @@ const createFirestoreDataRef = (path: string) => {
   return firestoreFunctionPath(path, firestoreRef);
 };
 
-const setFirestoreDocument = ({ data, path }: SetOptions) => {
+const setFirestoreDocument = ({ data, path, merge }: SetOptions) => {
   const firestoreDataRef = createFirestoreDataRef(path);
   if (!firestoreDataRef) {
     return;
@@ -31,7 +32,7 @@ const setFirestoreDocument = ({ data, path }: SetOptions) => {
   }
 
   if (!('where' in firestoreDataRef)) {
-    firestoreDataRef.set({ ...data });
+    firestoreDataRef.set({ ...data }, { merge });
   }
 };
 
