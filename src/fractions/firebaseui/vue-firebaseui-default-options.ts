@@ -3,7 +3,7 @@ import * as firebase from 'firebase/app';
 // DOCS
 // https://github.com/firebase/firebaseui-web#configure-email-provider
 
-export default {
+const firebaseUIDefaultOptions = {
   credentialHelper: 'none',
   signInOptions: [
     {
@@ -17,3 +17,5 @@ export default {
   ],
   signInSuccessUrl: 'http://localhost:8080/',
 };
+
+export { firebaseUIDefaultOptions };

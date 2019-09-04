@@ -1,22 +1,16 @@
 import 'firebase/firestore';
-import vueFirebaseData from '../data';
+import { vuetyfireData } from '../data';
 
 // Create Firestore instance
-const createFirestoreInstance = () =>
-  vueFirebaseData.vueFirebase!.App.firestore();
+const createFirestoreInstance = () => vuetyfireData.firebase!.App.firestore();
 
 // Initialize Firestore instance and set callback for set function
 const initFirestore = () => {
-  vueFirebaseData.onceSetFB(() => {
-    if (vueFirebaseData.initialized) {
-      vueFirebaseData.setVueFirebaseValue(
-        'firestore',
-        createFirestoreInstance(),
-      );
+  vuetyfireData.onceSetFB(() => {
+    if (vuetyfireData.initialized) {
+      vuetyfireData.setVueFirebaseValue('firestore', createFirestoreInstance());
     }
   });
 };
 
-export default {
-  initFirestore,
-};
+export { initFirestore };

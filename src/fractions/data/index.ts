@@ -2,7 +2,7 @@ import { VueFirebase } from '../firebase';
 
 // Class data interface
 interface FB {
-  vueFirebase: VueFirebase | null;
+  firebase: VueFirebase | null;
   initialized: boolean;
   hasAuth: boolean;
   hasFirebaseUI: boolean;
@@ -11,40 +11,40 @@ interface FB {
 
 // Interal storage data interface
 interface InternalData {
-  vueFirebase: VueFirebase | null;
+  firebase: VueFirebase | null;
   setFBCallbacks: Array<() => any>;
 }
 
 // Initial data
 const internalData: InternalData = {
+  firebase: null,
   setFBCallbacks: [],
-  vueFirebase: null,
 };
 
 // Data storage class
-class FirebaseData implements FB {
+class VuetyfireData implements FB {
   // Get value
-  public get vueFirebase() {
-    return internalData.vueFirebase;
+  public get firebase() {
+    return internalData.firebase;
   }
 
   // Set value and run all callbacks
-  public set vueFirebase(newFB: VueFirebase | null) {
-    internalData.vueFirebase = newFB;
+  public set firebase(newFB: VueFirebase | null) {
+    internalData.firebase = newFB;
     internalData.setFBCallbacks.forEach(callback => callback());
     internalData.setFBCallbacks = [];
   }
 
   // Set specific value in data object
   public setVueFirebaseValue(key: string, value: any) {
-    if (!!internalData.vueFirebase) {
-      internalData.vueFirebase[key] = value;
+    if (!!internalData.firebase) {
+      internalData.firebase[key] = value;
     }
   }
 
   // Get if Firebase app has been initialized
   public get initialized() {
-    return !!internalData.vueFirebase && !!internalData.vueFirebase.App;
+    return !!internalData.firebase && !!internalData.firebase.App;
   }
 
   // Set callback for set function
@@ -54,21 +54,21 @@ class FirebaseData implements FB {
 
   // Get if the app have auth
   public get hasAuth() {
-    return this.initialized && !!internalData.vueFirebase!.App.auth;
+    return this.initialized && !!internalData.firebase!.App.auth;
   }
 
   // Get if the app have user signed in
   public get signedIn() {
-    return this.hasAuth && !!internalData.vueFirebase!.App.auth().currentUser;
+    return this.hasAuth && !!internalData.firebase!.App.auth().currentUser;
   }
 
   // Get if the app have FirebaseUI
   public get hasFirebaseUI() {
-    return this.initialized && !!internalData.vueFirebase!.firebaseUI;
+    return this.initialized && !!internalData.firebase!.firebaseUI;
   }
 }
 
-const instance = new FirebaseData();
-Object.freeze(instance);
+const vuetyfireData = new VuetyfireData();
+Object.freeze(vuetyfireData);
 
-export default instance;
+export { vuetyfireData };

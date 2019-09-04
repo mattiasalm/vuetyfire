@@ -1,14 +1,11 @@
 import * as firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
 import { VueConstructor } from 'vue';
-import vueFirebaseAuthGuard from '../auth/vue-firebase-auth-guard';
-import vueFirebaseAuthMixin from '../auth/vue-firebase-auth-mixin';
-import vueFirebaseData from '../data';
-import vueFirebaseUI from '../firebaseui/vue-firebaseui';
-import vueFirebaseFirestore from '../firestore/vue-firebase-firestore';
-import vueFirebaseVueFire, {
-  VueFirestoreConfig,
-} from '../firestore/vue-firebase-vuefire';
+import { addEnterGuard } from '../auth';
+import { authMixin } from '../auth';
+import { vuetyfireData } from '../data';
+import { initFirebaseUI, startFirebaseUIAuth } from '../firebaseui';
+import { FirestoreConfig, initFirestore, initVueFire } from '../firestore';
 
 interface VueFirebase {
   App: firebase.app.App;
@@ -32,9 +29,9 @@ interface FirebaseConfig {
   appId: string;
 }
 
-interface VueFirebaseOptions {
+interface FirebaseOptions {
   firebaseConfig: FirebaseConfig;
-  firestoreConfig?: VueFirestoreConfig;
+  firestoreConfig?: FirestoreConfig;
   router?: any;
 }
 
@@ -44,48 +41,44 @@ const initFirebase = (firebaseConfig: FirebaseConfig) =>
 
 // Sign out
 const signOut = (): Promise<void> => {
-  if (vueFirebaseData.hasAuth) {
-    return vueFirebaseData.vueFirebase!.App.auth().signOut();
+  if (vuetyfireData.hasAuth) {
+    return vuetyfireData.firebase!.App.auth().signOut();
   } else {
     return Promise.resolve();
   }
 };
 
 // Install Firebase plugin to Vue
-const installFirebase = (Vue: VueConstructor, options: VueFirebaseOptions) => {
+const installFirebase = (Vue: VueConstructor, options: FirebaseOptions) => {
   // Init Firestore
-  vueFirebaseFirestore.initFirestore();
+  initFirestore();
 
   // Store all references in data object
-  vueFirebaseData.vueFirebase = {
+  vuetyfireData.firebase = {
     App: initFirebase(options.firebaseConfig),
     currentUser: null,
-    firebaseUI: vueFirebaseUI.initFirebaseUI(),
+    firebaseUI: initFirebaseUI(),
     firestore: null,
     initialized: false,
-    isSignedIn: vueFirebaseData.signedIn,
+    isSignedIn: vuetyfireData.signedIn,
     signOut,
-    startFirebaseUIAuth: vueFirebaseUI.startFirebaseUIAuth,
+    startFirebaseUIAuth,
   };
 
   // Init VueFire
-  vueFirebaseVueFire.initVueFire(
+  initVueFire(
     Vue,
-    vueFirebaseData.vueFirebase.firestore!,
+    vuetyfireData.firebase.firestore!,
     options.firestoreConfig || { firestoreReferences: [] },
   );
 
   // Add mixin for reactive auth data
-  Vue.mixin(vueFirebaseAuthMixin);
+  Vue.mixin(authMixin);
 
   // Add enter guard
   if (!!options.router) {
-    vueFirebaseAuthGuard.addEnterGuard(options.router);
+    addEnterGuard(options.router);
   }
 };
 
-export { VueFirebase, FirebaseConfig, VueFirestoreConfig, VueFirebaseOptions };
-
-export default {
-  installFirebase,
-};
+export { VueFirebase, FirebaseConfig, FirebaseOptions, installFirebase };

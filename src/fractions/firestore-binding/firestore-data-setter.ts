@@ -1,5 +1,5 @@
 import { firestore } from 'firebase';
-import vueFirebaseData from '../data';
+import { vuetyfireData } from '../data';
 import { firestoreFunctionPath, isObject } from '../util';
 
 interface SetOptions {
@@ -12,11 +12,11 @@ interface DeleteOptions {
 }
 
 const createFirestoreDataRef = (path: string) => {
-  if (!vueFirebaseData.vueFirebase) {
+  if (!vuetyfireData.firebase) {
     return;
   }
 
-  const firestoreRef: firestore.Firestore = vueFirebaseData.vueFirebase
+  const firestoreRef: firestore.Firestore = vuetyfireData.firebase
     .firestore as firestore.Firestore;
   return firestoreFunctionPath(path, firestoreRef);
 };

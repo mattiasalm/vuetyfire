@@ -1,4 +1,4 @@
-import vueFirebaseData from '../data';
+import { vuetyfireData } from '../data';
 
 // Make copies of interfaces to avoid adding VueRouter as a dependency only for it's typing
 interface RouteRecordCopy {
@@ -21,9 +21,9 @@ const enterGuard = (to: RouteCopy, _: RouteCopy, next: any) => {
 
   // Route requires auth to be reached
   // Check if the user is logged in before trying to reach route
-  if (vueFirebaseData.hasAuth) {
-    vueFirebaseData
-      .vueFirebase!.App.auth()
+  if (vuetyfireData.hasAuth) {
+    vuetyfireData
+      .firebase!.App.auth()
       .onAuthStateChanged((user: firebase.User | null) => {
         // User is logged in
         if (!!user) {
@@ -42,6 +42,4 @@ const enterGuard = (to: RouteCopy, _: RouteCopy, next: any) => {
 
 const addEnterGuard = (router: any) => router.beforeEach(enterGuard);
 
-export default {
-  addEnterGuard,
-};
+export { addEnterGuard };

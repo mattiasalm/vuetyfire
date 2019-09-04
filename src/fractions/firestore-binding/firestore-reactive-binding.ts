@@ -6,7 +6,7 @@ import {
 } from '@posva/vuefire-core';
 import { firestore } from 'firebase';
 import Vue from 'vue';
-import vueFirebaseData from '../data';
+import { vuetyfireData } from '../data';
 import { firestoreFunctionPath } from '../util';
 
 interface CommonOptions {
@@ -47,14 +47,14 @@ const bindFirestorePath = ({
   resolve,
   reject,
 }: FirestorePathOptions) => {
-  if (!vueFirebaseData.vueFirebase) {
+  if (!vuetyfireData.firebase) {
     return;
   }
   if (!vm || !path || !key) {
     return;
   }
 
-  const firestoreRef: firestore.Firestore = vueFirebaseData.vueFirebase
+  const firestoreRef: firestore.Firestore = vuetyfireData.firebase
     .firestore as firestore.Firestore;
   const firestoreDataRef:
     | firestore.CollectionReference

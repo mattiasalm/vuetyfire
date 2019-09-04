@@ -1,11 +1,13 @@
-import vueFirebase, {
+import {
   FirebaseConfig,
+  FirebaseOptions,
+  installFirebase,
   VueFirebase,
-  VueFirebaseOptions,
-  VueFirestoreConfig,
 } from './fractions/firebase';
+import { FirestoreConfig } from './fractions/firestore';
 
 export * from './fractions/firestore-binding';
+export * from './fractions/data';
 
 // Add extended module declarationm for Vue
 declare module 'vue/types/vue' {
@@ -14,8 +16,8 @@ declare module 'vue/types/vue' {
   }
 }
 
-export { FirebaseConfig, VueFirebaseOptions, VueFirestoreConfig };
+export { FirebaseConfig, FirebaseOptions, FirestoreConfig };
 
 export default {
-  install: vueFirebase.installFirebase,
+  install: installFirebase,
 };
