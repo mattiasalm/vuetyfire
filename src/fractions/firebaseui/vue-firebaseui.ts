@@ -12,10 +12,7 @@ const startFirebaseUIAuth = (id: string) => {
       firebaseUIDefaultOptions,
       vuetyfireData.firebase!.firebaseUIOptions,
     );
-    vuetyfireData.firebase!.firebaseUI!.start(
-      `#${id}`,
-      options,
-    );
+    vuetyfireData.firebase!.firebaseUI!.start(`#${id}`, options);
   }
 };
 

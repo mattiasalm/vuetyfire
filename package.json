@@ -1,6 +1,6 @@
 {
   "name": "vuetyfire",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Vue plugin for connecting Vue with Firebase",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
