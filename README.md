@@ -146,7 +146,7 @@ Vue.use(vuetyfire, { firebaseConfig, firestoreConfig });
 
 ### FirebaseUI options
 
-It is possible to modify the behaviour of FirebaseUI by providing a configuration object into the plugin options object. All configuration is done according to the [FirebaseUI](https://github.com/firebase/firebaseui-web) documentation.
+It is possible to modify the behaviour of FirebaseUI by providing a configuration object into the plugin options object. All configuration is done according to the [FirebaseUI](https://github.com/firebase/firebaseui-web) documentation. The provided configuration will be merged with the [default](https://github.com/mattiasalm/vuetyfire/blob/master/src/fractions/firebaseui/vue-firebaseui-default-options.ts) configuration for FirebaseUI. 
 
 **main.ts**
 
