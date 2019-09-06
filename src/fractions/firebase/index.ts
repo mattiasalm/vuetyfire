@@ -14,6 +14,9 @@ interface VueFirebase {
   currentUser: firebase.User | null;
   initialized: boolean;
   firebaseUI: firebaseui.auth.AuthUI | null;
+  firebaseUIOptions: {
+    [key: string]: any;
+  };
   startFirebaseUIAuth: (id: string) => void;
   firestore: firebase.firestore.Firestore | null;
   [key: string]: any;
@@ -31,6 +34,9 @@ interface FirebaseConfig {
 
 interface FirebaseOptions {
   firebaseConfig: FirebaseConfig;
+  firebaseUIOptions: {
+    [key: string]: any;
+  };
   firestoreConfig?: FirestoreConfig;
   router?: any;
 }
@@ -49,15 +55,24 @@ const signOut = (): Promise<void> => {
 };
 
 // Install Firebase plugin to Vue
-const installFirebase = (Vue: VueConstructor, options: FirebaseOptions) => {
+const installFirebase = (
+  Vue: VueConstructor,
+  {
+    firebaseConfig,
+    firebaseUIOptions,
+    firestoreConfig,
+    router,
+  }: FirebaseOptions,
+) => {
   // Init Firestore
   initFirestore();
 
   // Store all references in data object
   vuetyfireData.firebase = {
-    App: initFirebase(options.firebaseConfig),
+    App: initFirebase(firebaseConfig),
     currentUser: null,
     firebaseUI: initFirebaseUI(),
+    firebaseUIOptions: firebaseUIOptions || {},
     firestore: null,
     initialized: false,
     isSignedIn: vuetyfireData.signedIn,
@@ -68,16 +83,16 @@ const installFirebase = (Vue: VueConstructor, options: FirebaseOptions) => {
   // Init VueFire
   initVueFire(
     Vue,
-    vuetyfireData.firebase.firestore!,
-    options.firestoreConfig || { firestoreReferences: [] },
+    vuetyfireData.firebase!.firestore!,
+    firestoreConfig || { firestoreReferences: [] },
   );
 
   // Add mixin for reactive auth data
   Vue.mixin(authMixin);
 
   // Add enter guard
-  if (!!options.router) {
-    addEnterGuard(options.router);
+  if (!!router) {
+    addEnterGuard(router);
   }
 };
 

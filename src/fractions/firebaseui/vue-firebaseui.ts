@@ -7,9 +7,14 @@ import { firebaseUIDefaultOptions } from './vue-firebaseui-default-options';
 // Start Firebase UI in element with provied ID
 const startFirebaseUIAuth = (id: string) => {
   if (vuetyfireData.hasFirebaseUI) {
+    const options = Object.assign(
+      {},
+      firebaseUIDefaultOptions,
+      vuetyfireData.firebase!.firebaseUIOptions,
+    );
     vuetyfireData.firebase!.firebaseUI!.start(
       `#${id}`,
-      firebaseUIDefaultOptions,
+      options,
     );
   }
 };

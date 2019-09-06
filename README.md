@@ -126,6 +126,8 @@ Vuetyfire can already on initization bind specific paths in the Firestore databa
 
 Binding collections and documents from Firestore is done in the same way. Collections will always be an array and documents an object.
 
+**main.ts**
+
 ```typescript
 const firestoreConfig: VueFirestoreConfig = {
   firestoreReferences: [
@@ -139,10 +141,22 @@ const firestoreConfig: VueFirestoreConfig = {
   ],
 };
 
-Vue.use(vuetyfire, { firebaseConfig, router, firestoreConfig });
+Vue.use(vuetyfire, { firebaseConfig, firestoreConfig });
 ```
 
-<!-- TODO: ### FirebaseUI options -->
+### FirebaseUI options
+
+It is possible to modify the behaviour of FirebaseUI by providing a configuration object into the plugin options object. All configuration is done according to the [FirebaseUI](https://github.com/firebase/firebaseui-web) documentation.
+
+**main.ts**
+
+```typescript
+const firebaseUIOptions = {
+  signInSuccessUrl: 'http://localhost:8080/sign-in-success',
+};
+
+Vue.use(vuetyfire, { firebaseConfig, firebaseUIOptions });
+```
 
 ## Data binding
 
