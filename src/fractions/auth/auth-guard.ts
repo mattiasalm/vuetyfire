@@ -40,6 +40,4 @@ const enterGuard = (to: RouteCopy, _: RouteCopy, next: any) => {
   }
 };
 
-const addEnterGuard = (router: any) => router.beforeEach(enterGuard);
-
-export { addEnterGuard };
+export const addEnterGuard = (router: any) => router.beforeEach(enterGuard);

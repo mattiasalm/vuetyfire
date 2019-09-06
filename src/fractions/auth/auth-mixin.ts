@@ -3,7 +3,7 @@ import { vuetyfireData } from '../data';
 
 // Mixin with hook to store references to Firebase data object easily
 // reachable in Vue components
-const authMixin = {
+export const authMixin = {
   beforeCreate() {
     const localThis = this as any;
     localThis.$firebase = Vue.observable(vuetyfireData.firebase);
@@ -19,5 +19,3 @@ const authMixin = {
       });
   },
 };
-
-export { authMixin };

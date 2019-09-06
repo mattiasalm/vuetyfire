@@ -6,7 +6,7 @@ enum RefType {
 }
 
 // Create the function path for string path
-const firestoreFunctionPath = (
+export const firestoreFunctionPath = (
   path: string,
   firestoreRef: firestore.Firestore,
 ): firestore.CollectionReference | firestore.DocumentReference =>
@@ -21,9 +21,7 @@ const firestoreFunctionPath = (
     );
 
 // Helper
-const isEven = (num: number) => num % 2 === 0;
+export const isEven = (num: number) => num % 2 === 0;
 
-const isObject = (obj: any) =>
+export const isObject = (obj: any) =>
   typeof obj === 'function' || (typeof obj === 'object' && !!obj);
-
-export { firestoreFunctionPath, isEven, isObject };

@@ -40,7 +40,7 @@ const ops: OperationsType = {
   set: (target, path, value) => walkSet(target, path, value),
 };
 
-const bindFirestorePath = ({
+export const bindFirestorePath = ({
   vm,
   key,
   path,
@@ -82,5 +82,3 @@ const bindFirestorePath = ({
     return bindDocument(opts);
   }
 };
-
-export { bindFirestorePath };

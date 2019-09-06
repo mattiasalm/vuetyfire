@@ -22,51 +22,55 @@ const createFirestoreDataRef = (path: string) => {
   return firestoreFunctionPath(path, firestoreRef);
 };
 
-const setFirestoreDocument = ({ data, path, merge }: SetOptions) => {
+export const setFirestoreDocument = ({ data, path, merge }: SetOptions): Promise<void> => {
   const firestoreDataRef = createFirestoreDataRef(path);
   if (!firestoreDataRef) {
-    return;
+    return Promise.reject();
   }
   if (!isObject(data)) {
-    return;
+    return Promise.reject();
   }
 
   if (!('where' in firestoreDataRef)) {
-    firestoreDataRef.set({ ...data }, { merge });
+    return firestoreDataRef.set({ ...data }, { merge });
   }
+
+  return Promise.reject();
 };
 
-const addFirestoreDocument = ({ data, path }: SetOptions) => {
+export const addFirestoreDocument = ({ data, path }: SetOptions): Promise<void> => {
   const firestoreDataRef = createFirestoreDataRef(path);
   if (!firestoreDataRef) {
-    return;
+    return Promise.reject();
   }
   if (!isObject(data)) {
-    return;
+    return Promise.reject();
   }
 
   if ('where' in firestoreDataRef) {
-    firestoreDataRef
+    return firestoreDataRef
       .add({ ...data })
       .then((docRef: firestore.DocumentReference) => {
         const id = docRef.id;
-        docRef.set({ id }, { merge: true });
+        return docRef.set({ id }, { merge: true });
       })
       .catch(err => {
         throw new Error(err);
       });
   }
+
+  return Promise.reject();
 };
 
-const deleteFirestoreDocument = ({ path }: DeleteOptions) => {
+export const deleteFirestoreDocument = ({ path }: DeleteOptions): Promise<void> => {
   const firestoreDataRef = createFirestoreDataRef(path);
   if (!firestoreDataRef) {
-    return;
+    return Promise.reject();
   }
 
   if (!('where' in firestoreDataRef)) {
-    firestoreDataRef.delete();
+    return firestoreDataRef.delete();
   }
-};
 
-export { setFirestoreDocument, deleteFirestoreDocument, addFirestoreDocument };
+  return Promise.reject();
+};

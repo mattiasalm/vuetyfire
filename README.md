@@ -141,6 +141,15 @@ const firestoreConfig: VueFirestoreConfig = {
   ],
 };
 
+// IF you are developing with Typescript it can be a good idea to declare the typings for your collections and documents to have a smoother development.
+declare module 'vue/types/vue' {
+  interface Vue {
+    // collection: firebase.firestore.CollectionReference;
+    // document: firebase.firestore.DocumentReference;
+    myCollection: firebase.firestore.CollectionReference;
+  }
+}
+
 Vue.use(vuetyfire, { firebaseConfig, firestoreConfig });
 ```
 
@@ -225,7 +234,13 @@ Whenever a document needs to be created in a collection where a unique ID is nee
 ```typescript
 import { addFirestoreDocument} from 'vuetyfire';
 
-addFirestoreDocument({ data: { something: 1 }, path: 'path/to/your/collection' });
+addFirestoreDocument({ data: { something: 1 }, path: 'path/to/your/collection' })
+  .then(() => {
+    // Success!
+  })
+  .catch((err?: any) => {
+    // Failure!
+  });
 ```
 
 ### Set/update document
@@ -236,10 +251,22 @@ To update/set data to a document the **set** commnand should be used. It can be 
 import { setFirestoreDocument} from 'vuetyfire';
 
 // Set new data
-setFirestoreDocument({ data: { something: 1 }, path: 'path/to/document' });
+setFirestoreDocument({ data: { something: 1 }, path: 'path/to/document' })
+  .then(() => {
+    // Success!
+  })
+  .catch((err?: any) => {
+    // Failure!
+  });
 
 // Merge new data into existing document
-setFirestoreDocument({ data: { another: '' }, path: 'path/to/document' , merge: true});
+setFirestoreDocument({ data: { another: '' }, path: 'path/to/document' , merge: true})
+  .then(() => {
+    // Success!
+  })
+  .catch((err?: any) => {
+    // Failure!
+  });
 ```
 
 ### Delete document
@@ -249,6 +276,12 @@ Delete document data with the **delete** command.
 ```typescript
 import { deleteFirestoreDocument} from 'vuetyfire';
 
-deleteFirestoreDocument({ path: 'path/to/document' });
+deleteFirestoreDocument({ path: 'path/to/document' })
+  .then(() => {
+    // Success!
+  })
+  .catch((err?: any) => {
+    // Failure!
+  });
 
 ```

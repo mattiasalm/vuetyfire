@@ -7,7 +7,7 @@ import { vuetyfireData } from '../data';
 import { initFirebaseUI, startFirebaseUIAuth } from '../firebaseui';
 import { FirestoreConfig, initFirestore, initVueFire } from '../firestore';
 
-interface VueFirebase {
+export interface VueFirebase {
   App: firebase.app.App;
   signOut: () => void;
   isSignedIn: boolean;
@@ -22,7 +22,7 @@ interface VueFirebase {
   [key: string]: any;
 }
 
-interface FirebaseConfig {
+export interface FirebaseConfig {
   apiKey: string;
   authDomain: string;
   databaseURL: string;
@@ -32,7 +32,7 @@ interface FirebaseConfig {
   appId: string;
 }
 
-interface FirebaseOptions {
+export interface FirebaseOptions {
   firebaseConfig: FirebaseConfig;
   firebaseUIOptions: {
     [key: string]: any;
@@ -55,7 +55,7 @@ const signOut = (): Promise<void> => {
 };
 
 // Install Firebase plugin to Vue
-const installFirebase = (
+export const installFirebase = (
   Vue: VueConstructor,
   {
     firebaseConfig,
@@ -95,5 +95,3 @@ const installFirebase = (
     addEnterGuard(router);
   }
 };
-
-export { VueFirebase, FirebaseConfig, FirebaseOptions, installFirebase };

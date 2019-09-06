@@ -5,12 +5,10 @@ import { vuetyfireData } from '../data';
 const createFirestoreInstance = () => vuetyfireData.firebase!.App.firestore();
 
 // Initialize Firestore instance and set callback for set function
-const initFirestore = () => {
+export const initFirestore = () => {
   vuetyfireData.onceSetFB(() => {
     if (vuetyfireData.initialized) {
       vuetyfireData.setVueFirebaseValue('firestore', createFirestoreInstance());
     }
   });
 };
-
-export { initFirestore };

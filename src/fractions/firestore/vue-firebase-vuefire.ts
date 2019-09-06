@@ -9,7 +9,7 @@ interface FirestoreReference {
   path: string;
 }
 
-interface FirestoreConfig {
+export interface FirestoreConfig {
   firestoreReferences: FirestoreReference[];
 }
 
@@ -38,7 +38,7 @@ const createMixinFirestore = (
 };
 
 // Initialize Vuefire and add mixin data to Vue instance
-const initVueFire = (
+export const initVueFire = (
   Vue: VueConstructor,
   firestoreRef: firebase.firestore.Firestore,
   firestoreConfig: FirestoreConfig,
@@ -51,5 +51,3 @@ const initVueFire = (
     firestore: createMixinFirestore(firestoreConfig, firestoreRef),
   });
 };
-
-export { FirestoreConfig, firestoreFunctionPath, initVueFire };

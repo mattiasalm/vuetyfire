@@ -5,7 +5,7 @@ import { vuetyfireData } from '../data';
 import { firebaseUIDefaultOptions } from './vue-firebaseui-default-options';
 
 // Start Firebase UI in element with provied ID
-const startFirebaseUIAuth = (id: string) => {
+export const startFirebaseUIAuth = (id: string) => {
   if (vuetyfireData.hasFirebaseUI) {
     const options = Object.assign(
       {},
@@ -17,6 +17,4 @@ const startFirebaseUIAuth = (id: string) => {
 };
 
 // Initialize Firebase UI on app
-const initFirebaseUI = () => new firebaseui.auth.AuthUI(firebase.auth());
-
-export { initFirebaseUI, startFirebaseUIAuth };
+export const initFirebaseUI = () => new firebaseui.auth.AuthUI(firebase.auth());
