@@ -22,7 +22,11 @@ const createFirestoreDataRef = (path: string) => {
   return firestoreFunctionPath(path, firestoreRef);
 };
 
-export const setFirestoreDocument = ({ data, path, merge }: SetOptions): Promise<void> => {
+export const setFirestoreDocument = ({
+  data,
+  path,
+  merge,
+}: SetOptions): Promise<void> => {
   const firestoreDataRef = createFirestoreDataRef(path);
   if (!firestoreDataRef) {
     return Promise.reject();
@@ -38,7 +42,10 @@ export const setFirestoreDocument = ({ data, path, merge }: SetOptions): Promise
   return Promise.reject();
 };
 
-export const addFirestoreDocument = ({ data, path }: SetOptions): Promise<void> => {
+export const addFirestoreDocument = ({
+  data,
+  path,
+}: SetOptions): Promise<void> => {
   const firestoreDataRef = createFirestoreDataRef(path);
   if (!firestoreDataRef) {
     return Promise.reject();
@@ -62,7 +69,9 @@ export const addFirestoreDocument = ({ data, path }: SetOptions): Promise<void> 
   return Promise.reject();
 };
 
-export const deleteFirestoreDocument = ({ path }: DeleteOptions): Promise<void> => {
+export const deleteFirestoreDocument = ({
+  path,
+}: DeleteOptions): Promise<void> => {
   const firestoreDataRef = createFirestoreDataRef(path);
   if (!firestoreDataRef) {
     return Promise.reject();
